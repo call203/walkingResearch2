@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "307192454189",
+    "firebase_url": "https://walkingresearch-b7378.firebaseio.com",
+    "project_id": "walkingresearch-b7378",
+    "storage_bucket": "walkingresearch-b7378.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307192454189:android:a327fbf6e63153920feca4",
+        "android_client_info": {
+          "package_name": "org.techtown.walkingresearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307192454189-j12ucid8n3bavqvhvd1lactpjnet2fav.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.techtown.walkingresearch",
+            "certificate_hash": "6b631fd7c44ea0b21f85d0b85f84fcd299e7a1a2"
+          }
+        },
+        {
+          "client_id": "307192454189-hc5mrfp148lmvai4hhfs5nrfhcqujnb9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjG82DWnM_9FdImj7mNIlwECYTCYQNsa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307192454189-hc5mrfp148lmvai4hhfs5nrfhcqujnb9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.walkpackage.notification.ProfileFragment">
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/progileTool"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#C7C6C1"
+            android:elevation="10sp"
+            app:title="프로필"
+            app:titleTextColor="#ffffff"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progileTool"
+            android:id="@+id/name_board">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="#D9DDDC"
+                >
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="name"
+                    android:textColor="#000011"
+                    android:textSize="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="14dp"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_board"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_email"/>
+
+            <TextView
+                android:id="@+id/emailline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="****@gmail.com"
+                android:textSize="20sp"
+                android:layout_marginLeft="20sp"
+
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

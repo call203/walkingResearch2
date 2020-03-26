@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/Pedometer"
+        android:icon="@drawable/ic_count"
+        android:title="만보기"/>
+    <item
+        android:id="@+id/acceleration"
+        android:icon="@drawable/graph"
+        android:title="가속도 센서"/>
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_person"
+        android:title="프로필"/>
+
+</menu>
