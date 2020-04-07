@@ -4,15 +4,15 @@
     <item
         android:id="@+id/Pedometer"
         android:icon="@drawable/ic_count"
-        android:title="만보기"/>
+        android:title="walking"/>
     <item
         android:id="@+id/acceleration"
         android:icon="@drawable/graph"
-        android:title="가속도 센서"/>
+        android:title="data"/>
 
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_person"
-        android:title="프로필"/>
+        android:title="setting"/>
 
 </menu>
