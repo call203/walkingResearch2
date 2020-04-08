@@ -21,6 +21,14 @@
         android:elevation="10sp"
         app:title="만보기"
         app:titleTextColor="#ffffff"/>
+        <Button
+            android:id="@+id/Bluetooth_Btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bluetooth 연결"
+            android:layout_below="@id/pedometerTool"
+            android:layout_alignParentRight="true"
+            />
 
     <TextView
         android:id="@+id/walknum"

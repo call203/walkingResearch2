@@ -3,6 +3,7 @@ package org.walkpackage.notification;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -59,7 +60,7 @@ import java.util.List;
 public class PedometerFragment extends Fragment implements SensorEventListener {
 
     private static final String TAG = "PedometerRagment";
-    Button mResetBtn, mStartBtn, mStopBtn;
+    Button mResetBtn, mStartBtn, mStopBtn, mBluetoothBtn;
     TextView mwalknum;
     TextView mGetspeed, mCalspeed, mNow, mLastTime, mGap;
     //현재 걸음 수
@@ -119,6 +120,7 @@ public class PedometerFragment extends Fragment implements SensorEventListener {
         mResetBtn = view.findViewById(R.id.reset_btn);
         mStartBtn = view.findViewById(R.id.start_btn);
         mStopBtn = view.findViewById(R.id.stop_btn);
+        mBluetoothBtn = view.findViewById(R.id.Bluetooth_Btn);
         mGetspeed = view.findViewById(R.id.getSpeed);
         mCalspeed = view.findViewById(R.id.calSpeed);
         mNow = view.findViewById(R.id.now);
@@ -136,6 +138,14 @@ public class PedometerFragment extends Fragment implements SensorEventListener {
         RecordModellist = new ArrayList<>();
         keylist = new ArrayList<>();
         //loadRecordSpeed();
+
+        mBluetoothBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), BluetoothActivity.class));
+            }
+        });
 
 
         //초기화 버튼 : 다시 숫자를 0으로 만들어준다.
