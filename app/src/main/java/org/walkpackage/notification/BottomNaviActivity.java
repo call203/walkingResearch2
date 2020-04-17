@@ -1,12 +1,12 @@
 package org.walkpackage.notification;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -18,6 +18,7 @@ public class BottomNaviActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private ProfileFragment profileFragment = new ProfileFragment();
     private PedometerFragment  pedometerFragment= new PedometerFragment();
+    private AccelerometerFragment accelerometerFragment = new AccelerometerFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,9 @@ public class BottomNaviActivity extends AppCompatActivity {
                 switch(menuItem.getItemId()){
                     case R.id.Pedometer :
                         transaction.replace(R.id.frameLayout,pedometerFragment).commitAllowingStateLoss();
+                        break;
+                    case R.id.acceleration :
+                        transaction.replace(R.id.frameLayout,accelerometerFragment).commitAllowingStateLoss();
                         break;
                     case R.id.profile :
                         transaction.replace(R.id.frameLayout,profileFragment).commitAllowingStateLoss();

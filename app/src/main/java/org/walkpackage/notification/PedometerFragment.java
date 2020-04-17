@@ -400,6 +400,3 @@ public class PedometerFragment extends Fragment implements SensorEventListener {
 
 
 }
-
-
-
