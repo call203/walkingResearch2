@@ -68,12 +68,18 @@
         android:layout_marginTop="6dp"
         android:background="@drawable/shadow"
         android:text="Login" />
-
-    <LinearLayout
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/GoogleSignin_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_btn"
-        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/registertxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/GoogleSignin_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
@@ -86,6 +92,7 @@
             android:layout_alignParentBottom="true"
             android:text="아직 계정이 없으신가요?" />
 
+
         <TextView
             android:id="@+id/register_t2"
             android:layout_width="match_parent"
@@ -95,6 +102,8 @@
             android:clickable="true"
             android:text="가입하기"
             android:textColor="#FDF30707" />
+
+
     </LinearLayout>
 
 
