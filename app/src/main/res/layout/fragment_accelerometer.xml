@@ -53,9 +53,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/stepcount"
+            android:id="@+id/time"
             android:layout_marginTop="30sp"
-            android:layout_below="@+id/zValue"/>
+            android:layout_below="@id/zValue"/>
+
 
 
         <RelativeLayout
