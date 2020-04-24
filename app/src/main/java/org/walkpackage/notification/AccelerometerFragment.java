@@ -9,6 +9,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,7 +109,13 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
         btnStart.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              startAccel();
+              Handler handler = new Handler();
+              handler.postDelayed(new Runnable() {
+                  @Override
+                  public void run() {
+                      startAccel();
+                  }
+              },5000); //5초지연
           }
          });
         btnStop.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +138,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
 
     public void startAccel(){
+
 
         mSeriesAccelX = initSeries(Color.BLUE, "X"); //라인 그래프를 그림
         mSeriesAccelY = initSeries(Color.RED, "Y");
@@ -208,6 +216,19 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Not in use
+    }
+
+    //대기 함수
+    public static class Sleep {
+        public static void main(String[] args ) {
+            System.out.println("sleep 실행 전");
+            try {
+                Thread.sleep(5000); //1초 대기
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("sleep 실행 후");
+        }
     }
 
     //그래프 초기화
