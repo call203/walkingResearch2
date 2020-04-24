@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -199,6 +200,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
         //[걸음 수 센서]
         if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
+            Log.d("걸음", String.valueOf(flag));
 
                if(flag == false) {
                    //한걸음이 올라갔을때 저장
@@ -272,6 +274,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
     //리셋버튼
     public void ResetAccel(){
+        flag = false;
         xValue.setText("xValue: " + 0.0);
         yValue.setText("yValue: " + 0.0);
         zValue.setText("zValue: " + 0.0);
