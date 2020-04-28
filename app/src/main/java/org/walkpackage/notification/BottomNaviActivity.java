@@ -1,6 +1,7 @@
 package org.walkpackage.notification;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.techtown.walkingresearch.R;
@@ -19,6 +21,8 @@ public class BottomNaviActivity extends AppCompatActivity {
     private ProfileFragment profileFragment = new ProfileFragment();
     private PedometerFragment  pedometerFragment= new PedometerFragment();
     private AccelerometerFragment accelerometerFragment = new AccelerometerFragment();
+    private static final int RC_SIGN_IN = 9001;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +54,13 @@ public class BottomNaviActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
+    public void logout(){
+        Log.v("알림", "구글 LOGOUT");
+//        firebaseAuth.signOut();
+//        finish();
+//        startActivity(new Intent(this, LoginActivity.class));
+    }
+
 }

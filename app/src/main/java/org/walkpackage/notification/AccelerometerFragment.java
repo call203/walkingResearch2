@@ -155,12 +155,12 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
         start = System.currentTimeMillis();
 
         if (mAccelerometer != null) {
-            mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+            mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
         }
 
         if (mStepCountSensor != null) {
 
-            mSensorManager.registerListener((SensorEventListener) this, mStepCountSensor, SensorManager.SENSOR_DELAY_GAME);
+            mSensorManager.registerListener((SensorEventListener) this, mStepCountSensor, SensorManager.SENSOR_DELAY_FASTEST);
 
         }
     }

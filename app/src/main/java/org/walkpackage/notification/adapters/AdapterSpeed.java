@@ -27,7 +27,8 @@ public class AdapterSpeed extends RecyclerView.Adapter<AdapterSpeed.MyHolder> {
     public AdapterSpeed(Context context, List<recordmodel> recordModellist) {
         this.context = context;
         this.RecordModellist = recordModellist;
-        Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if(Uid !=null)
+            Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
 

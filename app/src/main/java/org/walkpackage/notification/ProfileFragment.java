@@ -1,8 +1,12 @@
 package org.walkpackage.notification;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,6 +30,8 @@ import org.techtown.walkingresearch.R;
 public class ProfileFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
+
+
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private TextView mEmail, mName;
@@ -43,6 +49,7 @@ public class ProfileFragment extends Fragment {
 
         Toolbar ProfileTool = view.findViewById(R.id.progileTool);
         ((AppCompatActivity)getActivity()).setSupportActionBar(ProfileTool);
+        setHasOptionsMenu(true);
 
        firebaseAuth = FirebaseAuth.getInstance();
        currentUser = firebaseAuth.getCurrentUser();
@@ -78,5 +85,34 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // destroy all menu and re-call onCreateOptionsMenu
+        getActivity().invalidateOptionsMenu();
+    }
 
-}
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.appbar_action, menu) ;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings :
+                firebaseAuth.signOut();
+                getActivity().finish();
+                startActivity(new Intent(getActivity(), MainActivity.class));
+
+
+
+                    //((BottomNaviActivity) getActivity()).logout();
+                return true;
+            default :
+                return super.onOptionsItemSelected(item) ;
+        }
+    }
+
+    }
