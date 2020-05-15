@@ -21,6 +21,7 @@ public class BottomNaviActivity extends AppCompatActivity {
     private ProfileFragment profileFragment = new ProfileFragment();
     private PedometerFragment  pedometerFragment= new PedometerFragment();
     private AccelerometerFragment accelerometerFragment = new AccelerometerFragment();
+    private FitbitFragment fitbitFragment = new FitbitFragment();
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
 
@@ -43,6 +44,9 @@ public class BottomNaviActivity extends AppCompatActivity {
                 switch(menuItem.getItemId()){
                     case R.id.Pedometer :
                         transaction.replace(R.id.frameLayout,pedometerFragment).commitAllowingStateLoss();
+                        break;
+                    case R.id.fitbit :
+                        transaction.replace(R.id.frameLayout,fitbitFragment).commitAllowingStateLoss();
                         break;
                     case R.id.acceleration :
                         transaction.replace(R.id.frameLayout,accelerometerFragment).commitAllowingStateLoss();

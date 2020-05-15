@@ -6,6 +6,10 @@
         android:icon="@drawable/ic_count"
         android:title="walking"/>
     <item
+        android:id="@+id/fitbit"
+        android:icon="@drawable/ic_fitbit"
+        android:title="fitbit"/>
+    <item
         android:id="@+id/acceleration"
         android:icon="@drawable/graph"
         android:title="accelerometer"/>

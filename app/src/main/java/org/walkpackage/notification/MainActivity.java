@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         mEmailText = findViewById(R.id.emailEt);
         mPasswordText = findViewById(R.id.passwordEdt);
 
+
         //구글 Sign in
         signInithGoogle_btn = findViewById(R.id.GoogleSignin_btn);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -99,23 +100,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = mEmailText.getText().toString().trim();
-                String pwd = mPasswordText.getText().toString().trim();
-                firebaseAuth.signInWithEmailAndPassword(email,pwd)
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    Intent intent = new Intent(MainActivity.this, BottomNaviActivity.class);
-                                    startActivity(intent);
 
-                                }else{
-                                    Toast.makeText(MainActivity.this,"로그인 오류",Toast.LENGTH_SHORT).show();
+                String email = mEmailText.getText().toString();
+                String pwd = mPasswordText.getText().toString();
+
+
+                    firebaseAuth.signInWithEmailAndPassword(email,pwd)
+                            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        Intent intent = new Intent(MainActivity.this, BottomNaviActivity.class);
+                                        startActivity(intent);
+
+                                    }else{
+                                        Toast.makeText(MainActivity.this,"로그인 오류",Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
 
-            }
         });
     }
     //구글로 로그인

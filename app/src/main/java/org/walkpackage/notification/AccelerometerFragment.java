@@ -176,7 +176,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
             x = event.values[0];
             y = event.values[1];
             z = event.values[2];
-            long now = System.currentTimeMillis();
+           // long now = System.currentTimeMillis();
 
             xValue.setText("xValue: " + x);
             yValue.setText("yValue: " + y);
@@ -187,7 +187,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
             ref.child(uid).child("x").push().setValue(Double.toString(x));
             ref.child(uid).child("y").push().setValue(Double.toString(y));
             ref.child(uid).child("z").push().setValue(Double.toString(z));
-            ref.child(uid).child("time").push().setValue(Double.toString(now/1000.0)); //초단위
+            //ref.child(uid).child("time").push().setValue(Double.toString(now/1000.0)); //초단위
 
             graphLastAccelXValue += 0.05d;
 
