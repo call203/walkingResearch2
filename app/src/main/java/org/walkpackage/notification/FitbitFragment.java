@@ -4,6 +4,7 @@ package org.walkpackage.notification;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.techtown.walkingresearch.R;
 
 /**
@@ -19,6 +22,7 @@ import org.techtown.walkingresearch.R;
 public class FitbitFragment extends Fragment {
 
     private TextView tv_outPut;
+    private StringBuffer sb = new StringBuffer();
 
     public FitbitFragment() {
         // Required empty public constructor
@@ -33,7 +37,7 @@ public class FitbitFragment extends Fragment {
          tv_outPut = (TextView) view.findViewById(R.id.tv_outPut);
 
          //URL 설정
-         String url = "http://www.kma.go.kr/weather/main.jsp#1159068000";
+         String url = "https://01c78603.ngrok.io/settingweb1/restex";
 
          //AsyncTask를 통해 HttpURLConnection 수행.
         NetworkTask networkTask = new NetworkTask(url, null);
@@ -64,8 +68,29 @@ public class FitbitFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-            tv_outPut.setText(s);
+            try{
+
+                JSONArray fitbitArray = new JSONArray(s);
+                Log.d("배열","ok");
+
+                for(int i=0; i<fitbitArray.length(); i++) {
+                    JSONObject fitbitObject = fitbitArray.getJSONObject(i);
+                    Log.d("배열원소","ok");
+
+                    String a = fitbitObject.getString("director");
+                    String d = fitbitObject.getString("types");
+                    String b = fitbitObject.getString("movie_id");
+                    String c = fitbitObject.getString("movie_name");
+
+
+                    sb.append(a +"  " + b +"  "+ c + "  " + d + "  " );
+                }
+                 tv_outPut.setText(sb);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
