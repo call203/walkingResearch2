@@ -10,11 +10,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +41,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
     private SensorManager mSensorManager;
     private Sensor mAccelerometer, mStepCountSensor;
     TextView xValue, yValue, zValue,time;
+    private EditText idNum;
     private Thread thread;
     private Button btnStart, btnStop, btnReset;
     private LineGraphSeries<DataPoint> mSeriesAccelX, mSeriesAccelY, mSeriesAccelZ;
@@ -50,13 +51,14 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
     float x = 0;
     float y = 0;
     float z = 0;
-    Boolean flag = false;
+
     //시간 재기
     long start, end;
     //For 파이어베이스
     FirebaseAuth firebaseAuth;
     String uid;
-
+    //사용자 번호
+    String id;
 
     public AccelerometerFragment() {
         // Required empty public constructor
@@ -101,6 +103,9 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
         zValue.setText("zValue: " + 0.0);
         time.setText("Time: " + 0.0 + "seconds");
 
+        //사용자 idNum
+        idNum = (EditText)view.findViewById(R.id.idNum);
+
         //버튼추가
         btnStart = (Button)view.findViewById(R.id.btnStart);
         btnStop = (Button)view.findViewById(R.id.btnStop);
@@ -140,6 +145,9 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
     public void startAccel(){
 
+        //사용자 번호 저장
+        id = idNum.getText().toString();
+ 
 
         mSeriesAccelX = initSeries(Color.BLUE, "X"); //라인 그래프를 그림
         mSeriesAccelY = initSeries(Color.RED, "Y");
@@ -184,9 +192,9 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
             //파이어베이스에 저장
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RecordAccelerometer");
-            ref.child(uid).child("x").push().setValue(Double.toString(x));
-            ref.child(uid).child("y").push().setValue(Double.toString(y));
-            ref.child(uid).child("z").push().setValue(Double.toString(z));
+            ref.child(id).child("x").push().setValue(Double.toString(x));
+            ref.child(id).child("y").push().setValue(Double.toString(y));
+            ref.child(id).child("z").push().setValue(Double.toString(z));
             //ref.child(uid).child("time").push().setValue(Double.toString(now/1000.0)); //초단위
 
             graphLastAccelXValue += 0.05d;
@@ -201,17 +209,12 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
         //[걸음 수 센서]
         if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
-            Log.d("걸음", String.valueOf(flag));
 
-               //if(flag == false) {
-                   //한걸음이 올라갔을때 저장
-                   DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RecordAccelerometer");
-                   ref.child(uid).child("one_step").child("x").push().setValue(Double.toString(x));
-                   ref.child(uid).child("one_step").child("y").push().setValue(Double.toString(y));
-                   ref.child(uid).child("one_step").child("z").push().setValue(Double.toString(z));
-                   flag = true;
-              // }
-
+            //한걸음이 올라갔을때 저장
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RecordAccelerometer");
+            ref.child(id).child("one_step").child("x").push().setValue(Double.toString(x));
+            ref.child(id).child("one_step").child("y").push().setValue(Double.toString(y));
+            ref.child(id).child("one_step").child("z").push().setValue(Double.toString(z));
 
         }
     }
@@ -236,7 +239,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
     //그래프 초기화
     public GraphView initGraph(@NotNull GraphView graph, String title) {
-        //GraphView graph = getView().findViewById(id);
+
         //데이터가 늘어날때 x축 scroll이 생기도록
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
@@ -262,24 +265,33 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
     //멈춤 버튼
     public void StopAccel(){
+        //걸은 시간
         end = System.currentTimeMillis();
         double totalTime = (end-start)/1000.0;
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("RecordAccelerometer");
-        ref.child(uid).child("Totaltime").push().setValue(totalTime);
+        ref.child(id).child("Totaltime").push().setValue(totalTime);
 
         time.setText("Time: " + totalTime + "seconds");
 
         Toast.makeText(getActivity(), "Record Accelerometer Data!", Toast.LENGTH_SHORT).show();
-        mSensorManager.unregisterListener((SensorEventListener) this); // 센서 반납
+
+
+        // 센서 반납
+        mSensorManager.unregisterListener((SensorEventListener) this);
     }
 
     //리셋버튼
     public void ResetAccel(){
-        flag = false;
+
+        //사용자 번호 초기화
+        id=null;
+        idNum.setHint("사용자 번호");
+
         xValue.setText("xValue: " + 0.0);
         yValue.setText("yValue: " + 0.0);
         zValue.setText("zValue: " + 0.0);
         time.setText("Time: " + 0.0 + "seconds");
+
         //그래프 초기화
         mGraphAccel.removeAllSeries();
 

@@ -58,6 +58,13 @@
             android:layout_marginTop="30sp"
             android:layout_below="@id/zValue"/>
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="사용자 번호"
+            android:id="@+id/idNum"/>
+
+
 
 
         <RelativeLayout
