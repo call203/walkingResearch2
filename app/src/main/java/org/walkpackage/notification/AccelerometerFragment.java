@@ -47,6 +47,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
     private LineGraphSeries<DataPoint> mSeriesAccelX, mSeriesAccelY, mSeriesAccelZ;
     private GraphView mGraphAccel;
     private double graphLastAccelXValue = 10d;
+
     //가속도 data
     float x = 0;
     float y = 0;
@@ -54,11 +55,11 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
     //시간 재기
     long start, end;
-    //For 파이어베이스
-    FirebaseAuth firebaseAuth;
+    //파이어베이스
     String uid;
     //사용자 번호
     String id;
+    boolean res;
 
     public AccelerometerFragment() {
         // Required empty public constructor
@@ -68,20 +69,25 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_accelerometer, container, false);
 
-        //파이어베이스 설정
-        //해당 기록 user id 받기
+        /**
+         * [ 방법 1 ] 파이어베이스 uid 별로 데이터 저장하기
+         */
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        final View view = inflater.inflate(R.layout.fragment_accelerometer, container, false);
-        //가속도 센서 설정
+        /**
+         * [ 방법 2 ] 사용자에게 입력받은 식별값 별로 데이터 저장하기
+         */
+        idNum = (EditText)view.findViewById(R.id.idNum);
+
+
+        // 센서 설정 (가속도 & 걸음 수)
         mSensorManager = (SensorManager) getActivity().getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
-        //pedometer센서 설정
         mStepCountSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
 
-
-
+        //그래프 초기화
         mGraphAccel = initGraph((GraphView) view.findViewById(R.id.graph), "X, Y, Z direction Acceleration");
 
         //마쉬멜로우 버전 이상에서 권한 신청하기
@@ -90,9 +96,6 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
             //ask for permission
             requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION},1);
         }
-
-
-
         xValue = (TextView) view.findViewById(R.id.xValue);
         yValue = (TextView) view.findViewById(R.id.yValue);
         zValue = (TextView) view.findViewById(R.id.zValue);
@@ -103,33 +106,38 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
         zValue.setText("zValue: " + 0.0);
         time.setText("Time: " + 0.0 + "seconds");
 
-        //사용자 idNum
-        idNum = (EditText)view.findViewById(R.id.idNum);
 
-        //버튼추가
+
+        // **** 버튼 ***//
         btnStart = (Button)view.findViewById(R.id.btnStart);
         btnStop = (Button)view.findViewById(R.id.btnStop);
         btnReset = (Button)view.findViewById(R.id.btnReset);
 
-        //버튼 제어
+        // *** 버튼 제어 ***///
+        //[ 시작 버튼 ]
         btnStart.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
+              //사용자 번호 저장
+              id = idNum.getText().toString();
               Handler handler = new Handler();
               handler.postDelayed(new Runnable() {
                   @Override
                   public void run() {
                       startAccel();
                   }
-              },5000); //5초지연
+              }, 5000); //5초지연
+
           }
          });
+        //[ 멈춤 버튼 ]
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 StopAccel();
             }
         });
+        //[ 리셋 버튼 ]
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,40 +146,40 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
         });
 
 
-        // Inflate the layout for this fragment
         return view;
     }
 
-
+    //* 가속도 센서 측정 시작 *//
     public void startAccel(){
 
-        //사용자 번호 저장
-        id = idNum.getText().toString();
- 
 
-        mSeriesAccelX = initSeries(Color.BLUE, "X"); //라인 그래프를 그림
-        mSeriesAccelY = initSeries(Color.RED, "Y");
-        mSeriesAccelZ = initSeries(Color.GREEN, "Z");
+            mSeriesAccelX = initSeries(Color.BLUE, "X"); //라인 그래프를 그림
+            mSeriesAccelY = initSeries(Color.RED, "Y");
+            mSeriesAccelZ = initSeries(Color.GREEN, "Z");
 
 
-        //그래프에 x,y,z 추가
-        mGraphAccel.addSeries(mSeriesAccelX);
-        mGraphAccel.addSeries(mSeriesAccelY);
-        mGraphAccel.addSeries(mSeriesAccelZ);
+            //그래프에 x,y,z 추가
+            mGraphAccel.addSeries(mSeriesAccelX);
+            mGraphAccel.addSeries(mSeriesAccelY);
+            mGraphAccel.addSeries(mSeriesAccelZ);
 
-        //시간
-        start = System.currentTimeMillis();
+            //시간
+            start = System.currentTimeMillis();
 
-        if (mAccelerometer != null) {
-            mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
-        }
+            //센서 등록
+            if (mAccelerometer != null) {
+                mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+            }
 
-        if (mStepCountSensor != null) {
+            if (mStepCountSensor != null) {
 
-            mSensorManager.registerListener((SensorEventListener) this, mStepCountSensor, SensorManager.SENSOR_DELAY_FASTEST);
+                mSensorManager.registerListener((SensorEventListener) this, mStepCountSensor, SensorManager.SENSOR_DELAY_FASTEST);
 
-        }
+            }
+
     }
+
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -285,6 +293,8 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
         //사용자 번호 초기화
         id=null;
+        res = false;
+        idNum.setText(null);
         idNum.setHint("사용자 번호");
 
         xValue.setText("xValue: " + 0.0);

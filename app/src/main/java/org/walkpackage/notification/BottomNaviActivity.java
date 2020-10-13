@@ -22,6 +22,7 @@ public class BottomNaviActivity extends AppCompatActivity {
     private PedometerFragment  pedometerFragment= new PedometerFragment();
     private AccelerometerFragment accelerometerFragment = new AccelerometerFragment();
     private FitbitFragment fitbitFragment = new FitbitFragment();
+    private JudgmentFragment judgmentFragment = new JudgmentFragment();
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
 
@@ -51,9 +52,13 @@ public class BottomNaviActivity extends AppCompatActivity {
                     case R.id.acceleration :
                         transaction.replace(R.id.frameLayout,accelerometerFragment).commitAllowingStateLoss();
                         break;
+                    case R.id.judgment :
+                        transaction.replace(R.id.frameLayout,judgmentFragment).commitAllowingStateLoss();
+                        break;
                     case R.id.profile :
                         transaction.replace(R.id.frameLayout,profileFragment).commitAllowingStateLoss();
                         break;
+
                 }
                 return true;
             }

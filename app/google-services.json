@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "307192454189",
-    "firebase_url": "https://walkingresearch-b7378.firebaseio.com",
-    "project_id": "walkingresearch-b7378",
-    "storage_bucket": "walkingresearch-b7378.appspot.com"
+    "project_number": "955481714991",
+    "firebase_url": "https://walkingresearch2.firebaseio.com",
+    "project_id": "walkingresearch2",
+    "storage_bucket": "walkingresearch2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:307192454189:android:a327fbf6e63153920feca4",
+        "mobilesdk_app_id": "1:955481714991:android:44e253089e61eb80dd71da",
         "android_client_info": {
           "package_name": "org.techtown.walkingresearch"
         }
       },
       "oauth_client": [
         {
-          "client_id": "307192454189-j12ucid8n3bavqvhvd1lactpjnet2fav.apps.googleusercontent.com",
+          "client_id": "955481714991-4ksl4d7bkq3s01a5qdtpisk8jbcvnacc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "org.techtown.walkingresearch",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "307192454189-hc5mrfp148lmvai4hhfs5nrfhcqujnb9.apps.googleusercontent.com",
+          "client_id": "955481714991-4m2fah6qg26k050tpjoc6h8t1uigad52.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCjG82DWnM_9FdImj7mNIlwECYTCYQNsa8"
+          "current_key": "AIzaSyCRm8UMzEsoYaClJWnUFdmiL0UIXUBGK_Y"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "307192454189-hc5mrfp148lmvai4hhfs5nrfhcqujnb9.apps.googleusercontent.com",
+              "client_id": "955481714991-4m2fah6qg26k050tpjoc6h8t1uigad52.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

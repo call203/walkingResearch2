@@ -15,8 +15,15 @@
         android:title="accelerometer"/>
 
     <item
+        android:id="@+id/judgment"
+        android:icon="@drawable/judgment"
+        android:title="judgment"/>
+
+    <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_person"
         android:title="setting"/>
+
+
 
 </menu>
